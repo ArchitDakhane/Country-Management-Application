@@ -11,6 +11,15 @@ const StateList = ({ countryIndex, countries, setCountries }) => {
     }
   };
 
+  const editState = (stateIndex) => {
+    const newName = prompt("Enter new state name:");
+    if (newName) {
+      const updatedCountries = [...countries];
+      updatedCountries[countryIndex].states[stateIndex].name = newName;
+      setCountries(updatedCountries);
+    }
+  };
+
   const deleteState = (stateIndex) => {
     if (window.confirm("Are you sure you want to delete this state?")) {
       const updatedCountries = [...countries];
@@ -26,6 +35,7 @@ const StateList = ({ countryIndex, countries, setCountries }) => {
       {countries[countryIndex].states.map((state, stateIndex) => (
         <div key={stateIndex} className="border p-2 my-2 rounded shadow-sm bg-light">
           <p className="m-0 fw-bold">{state.name}</p>
+          <button className="btn btn-warning btn-sm me-2" onClick={() => editState(stateIndex)}> Edit</button>
           <button className="btn btn-outline-danger btn-sm" onClick={() => deleteState(stateIndex)}> Delete</button>
           <CityList countryIndex={countryIndex} stateIndex={stateIndex} countries={countries} setCountries={setCountries} />
         </div>
